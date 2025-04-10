@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>파리채 효과</title>
+  <style>
+    body {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    #target {
+      position: relative;
+      max-width: 300px;
+      transition: transform 0.1s;
+    }
+
+    #swatter {
+      position: absolute;
+      width: 200px;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%) rotate(0deg);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .swat {
+      animation: swatAnim 0.5s ease forwards;
+    }
+
+    @keyframes swatAnim {
+      0% {
+        transform: translateX(-50%) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(-50%) rotate(20deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-50%) rotate(0deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="position: relative;">
+    <img id="target" src="target.jpg" alt="대상 이미지">
+    <img id="swatter" src="swatter.png" alt="파리채 이미지">
+  </div>
+
+  <script>
+    const target = document.getElementById('target');
+    const swatter = document.getElementById('swatter');
+
+    target.addEventListener('click', () => {
+      swatter.classList.remove('swat');
+      void swatter.offsetWidth; // trigger reflow
+      swatter.classList.add('swat');
+    });
+  </script>
+</body>
+</html>
